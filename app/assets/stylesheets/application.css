@@ -1,0 +1,71 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require_tree .
+ */
+
+@import url(http://fonts.googleapis.com/css?family=Permanent+Marker);
+
+body {
+  background-color: Gainsboro;
+}
+
+.container {
+	width: 90%;
+	height: 90%;
+}
+
+.board {
+  margin-top: 3%;
+  background-color: black;
+  margin-right: auto;
+  margin-left: auto;
+  width: 600px;
+  height: 600px;
+  border-spacing:0;
+  border-collapse:collapse;
+  overflow: hidden;
+
+
+  box-shadow: 0px 0px 15px 14px rgba(76, 76, 76, 0.75);
+  -moz-box-shadow: 0px 0px 15px 14px rgba(76, 76, 76, 0.75);
+  -webkit-box-shadow: 0px 0px 15px 14px rgba(76, 76, 76, 0.75);
+}
+
+.square {
+  width: 33%;
+  height: 33%;
+  font-family: 'Permanent Marker', cursive;
+  font-size:500%;
+  background-color: white;
+  text-align: center;
+  overflow: hidden;
+}
+
+/*top row*/
+#a1, #a2, #a3 {
+	border-bottom: 5px solid black;
+}
+
+/*bottom row*/
+#c1, #c2, #c3 {
+	border-top: 5px solid black;
+}
+
+/*right column*/
+#c3, #b3, #a3 {
+	border-left: 5px solid black;
+}
+
+/*left column*/
+#c1, #b1, #a1 {
+	border-right: 5px solid black;
+}

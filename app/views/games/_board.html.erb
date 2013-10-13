@@ -1,0 +1,40 @@
+<table class='board'>
+  	<% @cell_ids.each_with_index do |cell, i| %>
+		<% if i == 0 || i == 3 || i == 6 %>
+  			<tr class='row'>
+  				<td id='<%= cell %>' class='square'>
+	  				<% if @board_squares[cell].player == nil %>
+		  					<%= form_for(@board_squares[cell], as: :square)  do |f| %>
+						  	    <%= hidden_field_tag :player_id, @game.players[1].id %>
+							  	<%= f.submit "Choose Square" %>
+							<% end %>
+	  				<% else %>
+	  					<%= @game_board_squares[cell].player.symbol %>
+  					<% end %>
+					</td>
+			<% elsif i == 2 || i == 5 || i == 8 %>
+  				<td id='<%= cell %>' class='square'>
+	  				<% if @board_squares[cell].player == nil %>
+		  					<%= form_for(@board_squares[cell], as: :square) do |f| %>
+						  	    <%= hidden_field_tag :player_id, @game.players[1].id %>
+							  	<%= f.submit "Choose Square" %>
+							<% end %>
+	  				<% else %>
+	  					<%= @board_squares[cell].player.symbol %>
+  					<% end %>
+					</td>
+				</tr>
+		<% else %>
+				<td id='<%= cell %>' class='square'>
+  				<% if @board_squares[cell].player == nil %>
+  					<%= form_for(@board_squares[cell], as: :square) do |f| %>
+				  	    <%= hidden_field_tag :player_id, @game.players[1].id %>
+					  	<%= f.submit "Choose Square" %>
+					<% end %>
+  				<% else %>
+  					<%= @board_squares[cell].player.symbol %>
+				<% end %>
+			</td>
+		<% end %>
+	<% end %>
+</table>
