@@ -11,6 +11,7 @@ class GamesController < ApplicationController
   def show
     @board.wins.each_with_index do |set, i|
       concat = ''
+      @winner = 'none'
       set.each {|sqr| concat += @board_squares[sqr].player.symbol unless @board_squares[sqr].player == nil}
       if concat == 'XXX'
         # human wins
@@ -20,30 +21,46 @@ class GamesController < ApplicationController
         # computer wins
         @winner = "computer"
         break
+      elsif @board.blanks.size == 0
+        @winner = "draw"
+        break
       elsif concat == 'OO'
         # go for win
-        if @board.move(set, @game.players[0])
+        if @board.blanks.size.even? && @board.move(set, @game.players[0])
           redirect_to @game
         end
       elsif concat == 'XX'
         # go for block
-        if @board.move(set, @game.players[0])
+        if @board.blanks.size.even? && @board.move(set, @game.players[0])
           redirect_to @game
         end
       elsif @board.blanks.size == 8
         # check where human moved
         if @board_squares['b2'].player_id == nil
           # take the center
-          if @board.move(['b2'], @game.players[0])
+          if @board.blanks.size.even? && @board.move(['b2'], @game.players[0])
             redirect_to @game
           end
         else
           square_set = ['a1','a3','c1','c3']
           # take a corner
-          @board.move(square_set, @game.players[0])
-          if @board.move(square_set, @game.players[0])
+          if @board.blanks.size.even? && @board.move(square_set, @game.players[0])
             redirect_to @game
           end
+        end
+      elsif @board.blanks.size == 2 
+        # any slot will do
+        sqr = square_to_name(@board.blanks.first)
+        if @board.blanks.size.even? && @board.move([sqr], @game.players[0])
+          redirect_to @game
+        end
+      else
+        # any slot will do
+        sqr = square_to_name(@board.blanks.first)
+        if @board.blanks.size.even? && @board.move([sqr], @game.players[0])
+          @board.blanks.first.save
+          raise
+          redirect_to @game
         end
       end
     end
@@ -100,6 +117,17 @@ class GamesController < ApplicationController
       (0..8).each { |i| @board_squares[@cell_ids[i]] = @squares[i] }
       @board_squares
     end
+
+    def square_to_name(square)
+      case square.y
+      when 0
+        'a' + (square.x + 1).to_s
+      when 1
+        'b' + (square.x + 1).to_s
+      when 2
+        'c' + (square.x + 1).to_s
+      end
+     end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_game

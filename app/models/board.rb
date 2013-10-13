@@ -61,8 +61,7 @@ class Board < ActiveRecord::Base
 
 	def move(square_set, player)
 		set_cells
-
-		square_set.each_with_index do |sqr,i|
+		square_set.each do |sqr|
 			if @board_squares[sqr].player_id == nil
 				@board_squares[sqr].player_id = player.id
 				@board_squares[sqr].save
