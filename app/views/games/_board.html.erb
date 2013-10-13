@@ -9,7 +9,7 @@
 							  	<%= f.submit "Choose Square" %>
 							<% end %>
 	  				<% else %>
-	  					<%= @game_board_squares[cell].player.symbol %>
+	  					<%= @board_squares[cell].player.symbol %>
   					<% end %>
 					</td>
 			<% elsif i == 2 || i == 5 || i == 8 %>

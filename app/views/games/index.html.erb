@@ -1,4 +1,4 @@
-<h1>Listing games</h1>
+<h1>Past Games</h1>
 
 <table>
   <thead>
@@ -12,10 +12,9 @@
   <tbody>
     <% @games.each do |game| %>
       <tr>
-      
-        <td><%= link_to 'Show', game %></td>
-        <td><%= link_to 'Edit', edit_game_path(game) %></td>
-        <td><%= link_to 'Destroy', game, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to "#{game.players[1].name} vs #{game.players[0].name}", game %></td>
+        <td> | </td>
+        <td><%= link_to 'Remove', game, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

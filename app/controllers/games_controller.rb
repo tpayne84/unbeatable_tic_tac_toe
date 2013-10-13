@@ -1,6 +1,7 @@
 class GamesController < ApplicationController
   before_action :set_game, only: [:show, :edit, :update, :destroy]
   before_action :set_board, only: [:show, :edit, :update, :destroy]
+  before_action :empty_squares, only: [:show, :edit, :update, :destroy]
   before_action :set_cells, only: [:show]
 
   def index
@@ -8,7 +9,44 @@ class GamesController < ApplicationController
   end
 
   def show
-    
+    @board.wins.each_with_index do |set, i|
+      concat = ''
+      set.each {|sqr| concat += @board_squares[sqr].player.symbol unless @board_squares[sqr].player == nil}
+      if concat == 'XXX'
+        # human wins
+        @winner = "human"
+        break
+      elsif concat == 'OOO'
+        # computer wins
+        @winner = "computer"
+        break
+      elsif concat == 'OO'
+        # go for win
+        if @board.move(set, @game.players[0])
+          redirect_to @game
+        end
+      elsif concat == 'XX'
+        # go for block
+        if @board.move(set, @game.players[0])
+          redirect_to @game
+        end
+      elsif @board.blanks.size == 8
+        # check where human moved
+        if @board_squares['b2'].player_id == nil
+          # take the center
+          if @board.move(['b2'], @game.players[0])
+            redirect_to @game
+          end
+        else
+          square_set = ['a1','a3','c1','c3']
+          # take a corner
+          @board.move(square_set, @game.players[0])
+          if @board.move(square_set, @game.players[0])
+            redirect_to @game
+          end
+        end
+      end
+    end
   end
 
   def new
@@ -70,6 +108,10 @@ class GamesController < ApplicationController
 
     def set_board
       @board = @game.board
+    end
+
+    def empty_squares
+      @empty_squares = Square.where(game_id: params[:id], player_id: nil)
     end
 
     def game_params

@@ -1,7 +1,16 @@
 <p id="notice"><%= notice %></p>
 
-<%= render 'board' %>
+
+<% if @winner == 'human' %>
+	<h1><%= @game.players[1].name %>, you won!</h1>
+	<%= render 'board' %>
+<% elsif @winner == 'computer' %>
+	<h1><%= @game.players[1].name %>, you lost!</h1>
+	<%= render 'board' %>
+<% else @winner == 'human' %>
+	<h1><%= @game.players[1].name %>, its your move...</h1>
+	<%= render 'board' %>
+<% end %>
 
 
-<%= link_to 'Edit', edit_game_path(@game) %> |
 <%= link_to 'Back', games_path %>

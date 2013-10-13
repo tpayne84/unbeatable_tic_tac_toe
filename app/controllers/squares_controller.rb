@@ -12,6 +12,7 @@ class SquaresController < ApplicationController
 
   def update
     @square.update(square_params)
+    @square.game.toggle_turn
     redirect_to @square.game
   end
 
