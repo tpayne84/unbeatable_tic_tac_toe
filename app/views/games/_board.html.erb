@@ -1,4 +1,4 @@
-<table class='board'>
+<table class='board table table-hover'>
   	<% @cell_ids.each_with_index do |cell, i| %>
 		<% if i == 0 || i == 3 || i == 6 %>
   			<tr class='row'>
@@ -6,7 +6,7 @@
 	  				<% if @board_squares[cell].player == nil && @winner == 'none'  %>
 		  					<%= form_for(@board_squares[cell], as: :square)  do |f| %>
 						  	    <%= hidden_field_tag :player_id, @game.players[1].id %>
-							  	<%= f.submit "Choose Square" %>
+							  	<%= f.submit '__' %>
 							<% end %>
 	  				<% else %>
 	  					<%= @board_squares[cell].player.symbol %>
@@ -17,7 +17,7 @@
 	  				<% if @board_squares[cell].player == nil && @winner == 'none' %>
 		  					<%= form_for(@board_squares[cell], as: :square) do |f| %>
 						  	    <%= hidden_field_tag :player_id, @game.players[1].id %>
-							  	<%= f.submit "Choose Square" %>
+							  	<%= f.submit '__' %>
 							<% end %>
 	  				<% else %>
 	  					<%= @board_squares[cell].player.symbol %>
@@ -29,7 +29,7 @@
   				<% if @board_squares[cell].player == nil && @winner == 'none' %>
   					<%= form_for(@board_squares[cell], as: :square) do |f| %>
 				  	    <%= hidden_field_tag :player_id, @game.players[1].id %>
-					  	<%= f.submit "Choose Square" %>
+					  	<%= f.submit '__' %>
 					<% end %>
   				<% else %>
   					<%= @board_squares[cell].player.symbol %>

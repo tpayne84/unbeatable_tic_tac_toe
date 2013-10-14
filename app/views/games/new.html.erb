@@ -1,5 +1,13 @@
-<h1>New game</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Back', games_path %>
+<div class="bs-docs-section">
+        <div class="row">
+          <div class="ttt-board">
+	            <%= render 'form' %>
+            <div class="bs-example">
+              <p>
+                <%= link_to 'Back', games_path, :class => "btn btn-default btn-lg btn-block" %>
+              </p>
+            </div>
+          </div>
+        </div>
+  </div>
+</div>
