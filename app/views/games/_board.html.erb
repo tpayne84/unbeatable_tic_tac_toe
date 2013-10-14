@@ -9,10 +9,10 @@
 							  	<%= f.submit '__' %>
 							<% end %>
 	  				<% else %>
-	  					<%= @board_squares[cell].player.symbol %>
+	  					<%= @board_squares[cell].player.symbol unless @board_squares[cell].player == nil %>
   					<% end %>
 					</td>
-			<% elsif i == 2 || i == 5 || i == 8 %>
+		<% elsif i == 2 || i == 5 || i == 8 %>
   				<td id='<%= cell %>' class='square'>
 	  				<% if @board_squares[cell].player == nil && @winner == 'none' %>
 		  					<%= form_for(@board_squares[cell], as: :square) do |f| %>
@@ -20,20 +20,20 @@
 							  	<%= f.submit '__' %>
 							<% end %>
 	  				<% else %>
-	  					<%= @board_squares[cell].player.symbol %>
+	  					<%= @board_squares[cell].player.symbol unless @board_squares[cell].player == nil %>
   					<% end %>
 					</td>
 				</tr>
 		<% else %>
 				<td id='<%= cell %>' class='square'>
-  				<% if @board_squares[cell].player == nil && @winner == 'none' %>
-  					<%= form_for(@board_squares[cell], as: :square) do |f| %>
-				  	    <%= hidden_field_tag :player_id, @game.players[1].id %>
-					  	<%= f.submit '__' %>
+	  				<% if @board_squares[cell].player == nil && @winner == 'none' %>
+	  					<%= form_for(@board_squares[cell], as: :square) do |f| %>
+					  	    <%= hidden_field_tag :player_id, @game.players[1].id %>
+						  	<%= f.submit '__' %>
+						<% end %>
+	  				<% else %>
+	  					<%= @board_squares[cell].player.symbol unless @board_squares[cell].player == nil %>
 					<% end %>
-  				<% else %>
-  					<%= @board_squares[cell].player.symbol %>
-				<% end %>
 			</td>
 		<% end %>
 	<% end %>
