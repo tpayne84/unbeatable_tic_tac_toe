@@ -13,6 +13,7 @@ class GamesController < ApplicationController
       concat = ''
       @winner = 'none'
       set.each {|sqr| concat += @board_squares[sqr].player.symbol unless @board_squares[sqr].player == nil}
+
       if concat == 'XXX'
         # human wins
         @winner = "human"
@@ -30,6 +31,7 @@ class GamesController < ApplicationController
           redirect_to @game
         end
       elsif concat == 'XX'
+
         # go for block
         if @board.blanks.size.even? && @board.move(set, @game.players[0])
           redirect_to @game
@@ -48,21 +50,15 @@ class GamesController < ApplicationController
             redirect_to @game
           end
         end
-      elsif @board.blanks.size == 2 || @board.blanks.size == 4
-        # any slot will do, with 2 slots
-        sqr = square_to_name(@board.blanks.first)
-        if @board.blanks.size.even? && @board.move([sqr], @game.players[0])
-          redirect_to @game
-        end
       end
     end
-
-   # # any slot will do
-   #  sqr = square_to_name(@board.blanks.first)
-   #  if @board.blanks.size.even? && @board.move([sqr], @game.players[0])
-   #    @board.blanks.first.save
-   #    redirect_to @game
-   #  end
+    if @board.blanks.size == 2 || @board.blanks.size == 4
+      # any slot will do, with 2 slots
+      sqr = square_to_name(@board.blanks.first)
+      if @board.blanks.size.even? && @board.move([sqr], @game.players[0])
+        redirect_to @game
+      end
+    end
   end
 
   def new
