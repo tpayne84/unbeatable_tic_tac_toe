@@ -59,7 +59,6 @@ class GamesController < ApplicationController
         sqr = square_to_name(@board.blanks.first)
         if @board.blanks.size.even? && @board.move([sqr], @game.players[0])
           @board.blanks.first.save
-          raise
           redirect_to @game
         end
       end
