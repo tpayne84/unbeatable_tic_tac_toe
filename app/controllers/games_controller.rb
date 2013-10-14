@@ -48,21 +48,21 @@ class GamesController < ApplicationController
             redirect_to @game
           end
         end
-      elsif @board.blanks.size == 2 
-        # any slot will do
+      elsif @board.blanks.size == 2 || @board.blanks.size == 4
+        # any slot will do, with 2 slots
         sqr = square_to_name(@board.blanks.first)
         if @board.blanks.size.even? && @board.move([sqr], @game.players[0])
-          redirect_to @game
-        end
-      else
-        # any slot will do
-        sqr = square_to_name(@board.blanks.first)
-        if @board.blanks.size.even? && @board.move([sqr], @game.players[0])
-          @board.blanks.first.save
           redirect_to @game
         end
       end
     end
+
+   # # any slot will do
+   #  sqr = square_to_name(@board.blanks.first)
+   #  if @board.blanks.size.even? && @board.move([sqr], @game.players[0])
+   #    @board.blanks.first.save
+   #    redirect_to @game
+   #  end
   end
 
   def new
