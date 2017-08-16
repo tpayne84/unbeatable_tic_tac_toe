@@ -1,5 +1,3 @@
 == README
 
 Unbeatable Tic Tac Toe Game - Proof of Concept
-
-This does not include Unit Tests, but once I learn RSpec well enough I will be adding them.
